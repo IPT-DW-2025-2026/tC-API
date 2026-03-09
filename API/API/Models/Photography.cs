@@ -45,6 +45,7 @@ namespace API.Models {
 
       /*  ************************************** 
        *  Relationships
+       *  1-N
        *  ************************************** */
 
       /// <summary>
@@ -58,7 +59,14 @@ namespace API.Models {
       public Category Category { get; set; }
 
 
-
+      /*  ************************************** 
+      *  Relationship
+      *  M-N
+      *  ************************************** */
+      /// <summary>
+      /// List of purchases where the photo was purchased
+      /// </summary>
+      public ICollection<Purchase> ListofPurchases { get; set; }
 
    }
 }

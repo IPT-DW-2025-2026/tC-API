@@ -28,6 +28,7 @@ namespace API.Models {
 
       /*  ************************************** 
       *  Relationships
+      *  1-N
       *  ************************************** */
 
       /// <summary>
@@ -39,6 +40,15 @@ namespace API.Models {
       /// FK to the buyer of the purchase
       /// </summary>
       public MyUser Buyer { get; set; }
+
+      /*  ************************************** 
+       *  Relationship
+       *  M-N
+       *  ************************************** */
+      /// <summary>
+      /// List of photos that a buyer buys
+      /// </summary>
+      public ICollection<Photography> ListofPhotos { get; set; }
 
    }
 
