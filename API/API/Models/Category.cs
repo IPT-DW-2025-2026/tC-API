@@ -14,7 +14,7 @@
       /// <summary>
       /// the name of the Category
       /// </summary>
-      public string Category { get; set; }
+      public string Name { get; set; }
 
       /*  ************************************** 
       *  Relationships
