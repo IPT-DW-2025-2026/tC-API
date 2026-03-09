@@ -41,6 +41,14 @@
       public string CellPhone { get; set; }
 
 
+      /*  ************************************** 
+      *  Relationships
+      *  ************************************** */
+
+      /// <summary>
+      /// list of purchases that a user do
+      /// </summary>
+      public ICollection<Purchase>ListOfPurchases { get; set; }
 
    }
 }

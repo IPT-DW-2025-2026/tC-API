@@ -1,5 +1,8 @@
 ﻿using Mono.TextTemplating;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace API.Models {
 
    /// <summary>
@@ -10,6 +13,7 @@ namespace API.Models {
       /// <summary>
       /// PK
       /// </summary>
+      [Key]
       public int Id { get; set; }
 
       /// <summary>
@@ -21,6 +25,20 @@ namespace API.Models {
       /// the state of the buy
       /// </summary>
       public State State { get; set; }
+
+      /*  ************************************** 
+      *  Relationships
+      *  ************************************** */
+
+      /// <summary>
+      /// FK to the buyer of the purchase
+      /// </summary>
+      [ForeignKey(nameof(Buyer))]
+      public int BuyerFK { get; set; }
+      /// <summary>
+      /// FK to the buyer of the purchase
+      /// </summary>
+      public MyUser Buyer { get; set; }
 
    }
 
