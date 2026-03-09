@@ -16,5 +16,14 @@
       /// </summary>
       public string Category { get; set; }
 
+      /*  ************************************** 
+      *  Relationships
+      *  ************************************** */
+
+      /// <summary>
+      /// List of photos that a category has
+      /// </summary>
+      public ICollection<Photography>ListOfPhotos { get; set; }
+
    }
 }

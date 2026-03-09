@@ -1,4 +1,9 @@
-﻿namespace API.Models {
+﻿using Microsoft.CodeAnalysis.Operations;
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Models {
 
    /// <summary>
    /// Photos' data
@@ -9,6 +14,7 @@
       /// <summary>
       /// PK
       /// </summary>
+      [Key]
       public int Id { get; set; }
 
       /// <summary>
@@ -36,6 +42,22 @@
       /// the price that a user must pay for the photo
       /// </summary>
       public decimal Price { get; set; }
+
+      /*  ************************************** 
+       *  Relationships
+       *  ************************************** */
+
+      /// <summary>
+      /// FK to Category of Photo
+      /// </summary>
+      [ForeignKey(nameof(Category))]
+      public int CategoryFK { get; set; }
+      /// <summary>
+      /// FK to Category of Photo
+      /// </summary>
+      public Category Category { get; set; }
+
+
 
 
    }
