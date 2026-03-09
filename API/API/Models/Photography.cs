@@ -20,27 +20,38 @@ namespace API.Models {
       /// <summary>
       /// name of the photo
       /// </summary>
-      public string Title { get; set; }
+      [StringLength(50)]
+      [Required(ErrorMessage = "o {0} é obrigatório")]
+      [Display(Name = "Título")]
+      public string Title { get; set; } = string.Empty; // <=> "";
 
       /// <summary>
       /// some description of the photo
       /// </summary>
-      public string Description { get; set; }
+      [StringLength(200)]
+      [Display(Name = "Descrição")]
+      public string? Description { get; set; }
 
       /// <summary>
       /// name of the file that we use to store the
       /// photo's file at disk drive
       /// </summary>
-      public string File { get; set; }
+      [StringLength(40)]
+      public string File { get; set; } = "";
 
       /// <summary>
       /// the date when the photo was taken
       /// </summary>
+      [Display(Name = "Data")]
+      [DataType(DataType.Date)]
+      [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+         ApplyFormatInEditMode = true)]
       public DateTime Date { get; set; }
 
       /// <summary>
       /// the price that a user must pay for the photo
       /// </summary>
+      [Display(Name = "Preço")]
       public decimal Price { get; set; }
 
       /*  ************************************** 
@@ -52,11 +63,12 @@ namespace API.Models {
       /// FK to Category of Photo
       /// </summary>
       [ForeignKey(nameof(Category))]
+      [Display(Name = "Categoria")]
       public int CategoryFK { get; set; }
       /// <summary>
       /// FK to Category of Photo
       /// </summary>
-      public Category Category { get; set; }
+      public Category Category { get; set; } = null!;
 
 
       /*  ************************************** 
@@ -66,7 +78,7 @@ namespace API.Models {
       /// <summary>
       /// List of purchases where the photo was purchased
       /// </summary>
-      public ICollection<Purchase> ListofPurchases { get; set; }
+      public ICollection<Purchase> ListofPurchases { get; set; } = [];
 
    }
 }
