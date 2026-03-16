@@ -43,12 +43,17 @@ namespace API.Controllers.API {
                                  Id = c.Id,
                                  Name = c.Name
                               })
+                              .OrderBy(c => c.Name)
                               .ToListAsync();
       }
+
+
+
 
       // GET: api/Categories/5
       [HttpGet("{id}")]
       public async Task<ActionResult<Category>> GetCategory(int id) {
+
          var category = await _context.Categories.FindAsync(id);
 
          if(category == null) {
@@ -57,6 +62,9 @@ namespace API.Controllers.API {
 
          return category;
       }
+
+
+
 
       // PUT: api/Categories/5
       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
