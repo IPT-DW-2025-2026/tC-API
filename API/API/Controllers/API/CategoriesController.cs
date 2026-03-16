@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 using API.Data;
 using API.Models;
+using API.Models.ViewModels;
 
 namespace API.Controllers.API {
    [Route("api/[controller]")]
@@ -30,8 +31,19 @@ namespace API.Controllers.API {
 
       // GET: api/Categories
       [HttpGet]
-      public async Task<ActionResult<IEnumerable<Category>>> GetCategories() {
-         return await _context.Categories.ToListAsync();
+      public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories() {
+
+         /* _context.Categories.ToListAsync() its a LINQ command that means
+          * SELECT *
+          * FROM Categories 
+          */
+
+         return await _context.Categories
+                              .Select(c => new CategoryDTO {
+                                 Id = c.Id,
+                                 Name = c.Name
+                              })
+                              .ToListAsync();
       }
 
       // GET: api/Categories/5
@@ -80,6 +92,10 @@ namespace API.Controllers.API {
 
          return CreatedAtAction("GetCategory", new { id = category.Id }, category);
       }
+
+
+
+
 
       // DELETE: api/Categories/5
       [HttpDelete("{id}")]
