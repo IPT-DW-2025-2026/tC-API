@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,6 +53,7 @@ namespace API.Models {
       /// the price that a user must pay for the photo
       /// </summary>
       [Display(Name = "Preço")]
+      [Precision(10,2)]
       public decimal Price { get; set; }
 
       /*  ************************************** 
