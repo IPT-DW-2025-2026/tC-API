@@ -52,10 +52,22 @@ namespace API.Controllers.API {
 
       // GET: api/Categories/5
       [HttpGet("{id}")]
-      public async Task<ActionResult<Category>> GetCategory(int id) {
+      public async Task<ActionResult<CategorySimplerDTO>> GetCategory(int id) {
 
-         var category = await _context.Categories.FindAsync(id);
+         // in LINQ
+         // _context.Categories.FindAsync(id); means
+         // SELECT *
+         // FROM Categories
+         // WHERE Id = id
 
+         var category = await _context.Categories
+                                      .Where(c=>c.Id == id)
+                                      .Select(c=>new CategorySimplerDTO{
+                                         Name= c.Name
+                                      })
+                                      .FirstOrDefaultAsync();
+
+         // protection when you do not have value to present
          if(category == null) {
             return NotFound();
          }
