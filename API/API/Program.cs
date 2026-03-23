@@ -1,4 +1,5 @@
 using API.Data;
+using API.Data.Seed;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if(app.Environment.IsDevelopment()) {
    app.UseMigrationsEndPoint();
+
+   // use the seed methods
+   app.UseItToSeedSqlServer();
+
 }
 else {
    app.UseExceptionHandler("/Home/Error");

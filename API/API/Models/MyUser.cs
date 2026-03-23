@@ -13,32 +13,32 @@
       /// <summary>
       /// name of user
       /// </summary>
-      public string Name { get; set; }
+      public string Name { get; set; } = "";
 
       /// <summary>
       /// address of users
       /// </summary>
-      public string Address { get; set; }
+      public string? Address { get; set; }
 
       /// <summary>
       /// postal code of users' address
       /// </summary>
-      public string PostalCode { get; set; }
+      public string? PostalCode { get; set; }
 
       /// <summary>
       /// Country of users
       /// </summary>
-      public  string Country { get; set; }
+      public  string? Country { get; set; }
 
       /// <summary>
       /// tax number of users
       /// </summary>
-      public string TaxNumber { get; set; }
+      public string TaxNumber { get; set; } = "";
 
       /// <summary>
       /// The cell phone number that an user has
       /// </summary>
-      public string CellPhone { get; set; }
+      public string? CellPhone { get; set; }
 
 
       /*  ************************************** 
@@ -48,7 +48,7 @@
       /// <summary>
       /// list of purchases that a user do
       /// </summary>
-      public ICollection<Purchase>ListOfPurchases { get; set; }
+      public ICollection<Purchase> ListOfPurchases { get; set; } = [];
 
    }
 }
