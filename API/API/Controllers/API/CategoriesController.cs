@@ -13,10 +13,12 @@ using API.Models.ViewModels;
 
 using Azure.Core;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers.API {
    [Route("api/[controller]")]
    [ApiController]
+   [Authorize]
    public class CategoriesController:ControllerBase {
 
       /// <summary>
@@ -106,31 +108,31 @@ namespace API.Controllers.API {
       //   return NoContent();
       //}
 
-      //// POST: api/Categories
-      //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-      //[HttpPost]
-      //public async Task<ActionResult<CategorySimplerDTO>> PostCategory(CategorySimplerDTO nameOfCategory) {
+      // POST: api/Categories
+      // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+      [HttpPost]
+      public async Task<ActionResult<CategorySimplerDTO>> PostCategory(CategorySimplerDTO nameOfCategory) {
 
-      //   Category category = new() {
-      //      Name = nameOfCategory.Name
-      //   };
+         Category category = new() {
+            Name = nameOfCategory.Name
+         };
 
-      //   try {
-      //      _context.Categories.Add(category);
-      //      await _context.SaveChangesAsync();
-      //   }
-      //   catch(Exception) {
-      //      //throw;
-      //      /* use 'throw' ONLY in development environment
-      //       * NEVER, NEVER in 'production', 
-      //       * because it expose too much data related with your program
-      //       */
-      //      return BadRequest();
-      //   }
+         try {
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+         }
+         catch(Exception) {
+            //throw;
+            /* use 'throw' ONLY in development environment
+             * NEVER, NEVER in 'production', 
+             * because it expose too much data related with your program
+             */
+            return BadRequest();
+         }
 
 
-      //   return CreatedAtAction("GetCategory", new { id = category.Id }, category);
-      //}
+         return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+      }
 
 
 
