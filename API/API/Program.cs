@@ -1,5 +1,6 @@
 using API.Data;
 using API.Data.Seed;
+using API.Tools;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
