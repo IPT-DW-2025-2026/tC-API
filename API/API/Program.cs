@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(c => {
 // *******************************************************************
 // JWT Settings
 var jwtSettings = builder.Configuration.GetSection("Jwt");
-var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 // I can use both cookie and JWT for authentication
 builder.Services.AddAuthentication(options => { })
