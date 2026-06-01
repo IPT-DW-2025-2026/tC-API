@@ -36,6 +36,7 @@ namespace API.Controllers.API {
 
       // GET: api/Categories
       [HttpGet]
+      [AllowAnonymous] // allow anonymous user to access this method
       public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories() {
 
          /* _context.Categories.ToListAsync() its a LINQ command that means
@@ -57,6 +58,7 @@ namespace API.Controllers.API {
 
       // GET: api/Categories/5
       [HttpGet("{id}")]
+      [AllowAnonymous] // allow anonymous user to access this method
       public async Task<ActionResult<CategorySimplerDTO>> GetCategory(int id) {
 
          // in LINQ
