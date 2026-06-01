@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers.API {
    [Route("api/[controller]")]
    [ApiController]
-   [Authorize]
+   [Authorize(AuthenticationSchemes ="Bearer")] // use of JWT for authentication
    public class CategoriesController:ControllerBase {
 
       /// <summary>
