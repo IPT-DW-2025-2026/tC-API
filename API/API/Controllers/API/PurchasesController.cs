@@ -1,5 +1,6 @@
 using API.Data;
 using API.Models;
+using API.Models.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ public class PurchasesController:ControllerBase {
 
    // GET: api/Purchase
    [HttpGet]
-   public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchase() {
+   public async Task<ActionResult<IEnumerable<PurchasesDTO>>> GetPurchase() {
 
       // who is the autentictated user?
       var currentUser = User.Identity!.Name!;
@@ -27,12 +28,47 @@ public class PurchasesController:ControllerBase {
       // Include the related Buyer and ListOfPhotos entities in the query
       var purchases = await _context.Purchases
                                     .Where(p => p.Buyer.UserName == currentUser)
-                                    .Include(p => p.Buyer)                                   
+                                    .Include(p => p.Buyer)
                                     .Include(p => p.ListofPhotos)
-
+                                    .Select(p => new PurchasesDTO {
+                                       PurchaseId = p.Id,
+                                       PurchaseState = p.State.ToString(),
+                                       PurchaseDate = p.Date,
+                                       BuyerName = p.Buyer.Name,
+                                       Photos= p.ListofPhotos.Select(photo => new PhotosPurchaseDTO {
+                                          PhotoId = photo.Id,
+                                          PhotoFile = photo.File
+                                       }).ToList()
+                                    })
                                     .ToListAsync();
 
-
+      /*
+        .Select(p => new PurchasesDTO {
+                           PurchaseId = p.Id,
+                           PurchaseState = ((int)p.State),
+                           PurchaseDate = p.Date,
+                           BuyerName = p.Buyer.Name,
+                           PhotoId = p.ListofPhotos.FirstOrDefault() != null ? p.ListofPhotos.FirstOrDefault()!.Id : 0, // Assuming you want the first photo's ID
+                           PhotoFile = p.ListofPhotos.FirstOrDefault() != null ? p.ListofPhotos.FirstOrDefault()!.File : "" // Assuming you want the first photo's file
+                        })
+       * 
+         .Select(p => new Purchase {
+                                       Id = p.Id,
+                                       Date = p.Date,
+                                       State = p.State,
+                                       BuyerFK = p.BuyerFK,
+                                       Buyer = new MyUser {
+                                          Id = p.Buyer.Id,
+                                          UserName = p.Buyer.UserName
+                                       },
+                                       ListofPhotos = p.ListofPhotos.Select(photo => new Photography {
+                                          Id = photo.Id,
+                                          Title = photo.Title,
+                                          Description = photo.Description,
+                                          Price = photo.Price
+                                       }).ToList()
+                                    }) 
+       */
       return purchases;
    }
 
