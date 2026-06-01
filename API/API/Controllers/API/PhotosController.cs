@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using API.Data;
+﻿using API.Data;
 using API.Models;
 using API.Models.ViewModels;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers.API {
    [Route("api/[controller]")]
    [ApiController]
+   [Authorize(AuthenticationSchemes = "Bearer")] // use of JWT for authentication
    public class PhotosController:ControllerBase {
       private readonly ApplicationDbContext _context;
 
@@ -23,6 +19,7 @@ namespace API.Controllers.API {
 
       // GET: api/Photos
       [HttpGet]
+      [AllowAnonymous]
       public async Task<ActionResult<IEnumerable<PhotosDTO>>> GetPhotos() {
          return await _context.Photos
                               .Where(ph => ph.Category.Name == "Paisagens")
@@ -39,6 +36,7 @@ namespace API.Controllers.API {
 
       // GET: api/Photos/5
       [HttpGet("{id}")]
+      [AllowAnonymous]
       public async Task<ActionResult<Photography>> GetPhotography(int id) {
          var photography = await _context.Photos.FindAsync(id);
 

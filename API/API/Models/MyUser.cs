@@ -1,4 +1,6 @@
-﻿namespace API.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API.Models {
 
    /// <summary>
    /// Web shop user's data
@@ -50,5 +52,13 @@
       /// </summary>
       public ICollection<Purchase> ListOfPurchases { get; set; } = [];
 
+      /// <summary>
+      /// atributo para 'ligar' o MyUser com o IdentityUser, 
+      /// ou seja, com os dados de autenticação do utilizador.
+      /// Neste caso, vamos usar o UserName do IdentityUser 
+      /// para através dele identificarmos as compras da pessoa autenticada
+      /// </summary>
+      [StringLength(50)]
+      public string UserName { get; set; } = "";
    }
 }
